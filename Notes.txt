@@ -1,0 +1,269 @@
+
+
+Class	: Instance1,		Instance2,	Instance3 ....  InstanceN
+Image	: Container1,		Containe2,	Containe3 .... ContainerN
+
+
+once container stop then use restart.
+
+
+
+>docker -v
+
+//Docker version 26.0.0
+
+
+>docker run hello-world
+
+// it will check locally, if not found then automatically search on gloabal repository hub
+
+>docker images
+
+// it will show all images in local machine.
+
+	REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+	hello-world   latest    d2c94e258dcb   12 months ago   13.3kB
+
+>docker pull openjdk
+
+// it will download first big files.
+
+>docker pull openjdk:my_Custom_Tag_Name_Like_Version_in_GitHUb
+
+
+>docker ps
+>docker ps --help
+>docker ps -a			//all
+// it shows docker Process Status
+
+-------------------------------------------------------------------------------------------------------
+
+
+
+> docker images
+			REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+			hello-world   latest    d2c94e258dcb   12 months ago   13.3kB
+			openjdk       latest    71260f256d19   15 months ago   470MB
+
+> docker run --name HelloWorld_Instance_1 -d hello-world
+bbc1b518349e9f7ff97197d1b5f6d9cf4b3bbd30c18244e11b091bfca8bbff02
+
+//	d = detach
+
+> docker run --name Java_Instance1 -d openjdk
+212fe3d3706e4ed1364d85501ab3882ad9733743c72e93dc97b5ba30bbc6666b
+
+> docker run --name Java_Instance2 -d openjdk
+618ceeacdcb36e0219677bafe00bb50dc84e3a6e99b0307ee61d7666d25b5314
+
+
+> docker run --name HelloWorld_Instance_1 -d hello-world -env password=1234
+
+
+
+
+//		IN THIS CASE INSTANCE IS EXECUTING AND CLOSING ONLY ONCE..
+
+
+> docker run --name Java_Instance4 -it -d openjdk
+
+> docker ps -a
+	
+CONTAINER ID   IMAGE         COMMAND    CREATED          STATUS                      PORTS     NAMES
+6e94927e65b7   openjdk       "jshell"   8 seconds ago    Up 7 seconds                          Java_Instance4
+
+b7cbfe230676   openjdk       "jshell"   10 minutes ago   Exited (0) 10 minutes ago             Java_Instance3
+618ceeacdcb3   openjdk       "jshell"   10 minutes ago   Exited (0) 10 minutes ago             Java_Instance2
+212fe3d3706e   openjdk       "jshell"   10 minutes ago   Exited (0) 10 minutes ago             Java_Instance1
+bbc1b518349e   hello-world   "/hello"   4 hours ago      Exited (0) 4 hours ago                deepHelloWorld
+9350b646f4ea   hello-world   "/hello"   7 hours ago      Exited (0) 7 hours ago                optimistic_mayer
+
+
+
+
+
+> docker run -it --name Python_Instance1 -d python
+> docker ps -a
+	
+	CONTAINER ID   IMAGE         COMMAND     CREATED          STATUS                      PORTS     NAMES
+	8427afb7bb97   python        "python3"   46 seconds ago   Up 45 seconds                         Python_Instance1
+	
+	912842871c2f   openjdk       "jshell"    2 hours ago      Up 2 hours                            java_Instance5
+
+
+> docker exec -it 8427afb7bb97 python3
+
+	Python 3.12.3 (main, Apr 24 2024, 11:17:35) [GCC 12.2.0] on linux
+	Type "help", "copyright", "credits" or "license" for more information.
+	>>> print("Hi");
+	Hi
+	>>> exit()
+
+//	8427afb7bb97 or Python_Instance1	
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+> docker inspect 8427afb7bb97
+
+
+[
+    {
+        "Id": "8427afb7bb97b5af9556a028fdfe55a1938df08bc08806b0aa50681a7883f8d4",
+        "Created": "2024-05-14T07:52:28.235526166Z",
+        "Path": "python3",
+        "Args": [],
+        "State": {
+            "Status": "running",
+            "Running": true,
+
+
+-----------------------------------------------------------------------
+
+> docker run --name java_Instance6 -it -d openjdk
+
+> docker ps
+CONTAINER ID   IMAGE     COMMAND     CREATED          STATUS          PORTS     NAMES
+ac726fdf936b   openjdk   "jshell"    21 seconds ago   Up 20 seconds             java_Instance6
+
+
+> docker exec -it java_Instance6 jshell
+
+	|  Welcome to JShell -- Version 18.0.2.1
+	|  For an introduction type: /help intro
+
+	jshell> System.out.println("Hello Deepak, I am from docker!");
+	Hello Deepak, I am from docker!
+
+	jshell> /exit
+
+
+----------------------------------------------------------------------------------------
+
+
+> docker stop 99
+
+	or
+
+> docker stop 99f6f7921bca
+
+	or 
+
+> docker stop Java_Instance9
+
+
+
+---------------------------------------------------------------------------------------------
+
+> docker ps -a
+
+CONTAINER ID   IMAGE         COMMAND     CREATED         STATUS                       PORTS     NAMES
+99f6f7921bca   openjdk       "jshell"    3 minutes ago   Exited (143) 2 minutes ago             Java_Instance9
+f084a073a766   openjdk       "jshell"    4 hours ago     Exited (143) 4 hours ago               java_Instance8
+9243569ac6ad   openjdk       "jshell"    4 hours ago     Exited (0) 4 hours ago                 java_Instance7
+ac726fdf936b   openjdk       "jshell"    19 hours ago    Exited (255) 4 hours ago               java_Instance6
+88f3b0f480a7   python        "python3"   19 hours ago    Exited (255) 4 hours ago               Python_Instance2
+8427afb7bb97   python        "python3"   28 hours ago    Exited (255) 4 hours ago               Python_Instance1
+912842871c2f   openjdk       "jshell"    30 hours ago    Exited (255) 4 hours ago               java_Instance5
+6e94927e65b7   openjdk       "jshell"    43 hours ago    Exited (143) 42 hours ago              Java_Instance4
+b7cbfe230676   openjdk       "jshell"    43 hours ago    Exited (0) 43 hours ago                Java_Instance3
+618ceeacdcb3   openjdk       "jshell"    43 hours ago    Exited (0) 43 hours ago                Java_Instance2
+212fe3d3706e   openjdk       "jshell"    43 hours ago    Exited (0) 43 hours ago                Java_Instance1
+bbc1b518349e   hello-world   "/hello"    2 days ago      Exited (0) 42 hours ago                deepHelloWorld
+9350b646f4ea   hello-world   "/hello"    2 days ago      Exited (0) 2 days ago                  optimistic_mayer
+
+> docker rm java_Instance8
+java_Instance8
+
+// 	It will remove from PS -a history
+
+PS C:\Users\ugale> docker ps -a
+
+CONTAINER ID   IMAGE         COMMAND     CREATED         STATUS                       PORTS     NAMES
+99f6f7921bca   openjdk       "jshell"    4 minutes ago   Exited (143) 4 minutes ago             Java_Instance9
+
+9243569ac6ad   openjdk       "jshell"    4 hours ago     Exited (0) 4 hours ago                 java_Instance7
+
+
+
+
+> docker rm java_Instance1 Java_Instance2 java_Instance5
+java_Instance1
+Java_Instance2
+java_Instance5
+
+> docker ps -a
+CONTAINER ID   IMAGE         COMMAND     CREATED         STATUS                       PORTS     NAMES
+99f6f7921bca   openjdk       "jshell"    8 minutes ago   Exited (143) 7 minutes ago             Java_Instance9
+9243569ac6ad   openjdk       "jshell"    4 hours ago     Exited (0) 4 hours ago                 java_Instance7
+ac726fdf936b   openjdk       "jshell"    19 hours ago    Exited (255) 4 hours ago               java_Instance6
+88f3b0f480a7   python        "python3"   20 hours ago    Exited (255) 4 hours ago               Python_Instance2
+8427afb7bb97   python        "python3"   28 hours ago    Exited (255) 4 hours ago               Python_Instance1
+6e94927e65b7   openjdk       "jshell"    43 hours ago    Exited (143) 42 hours ago              Java_Instance4
+b7cbfe230676   openjdk       "jshell"    44 hours ago    Exited (0) 44 hours ago                Java_Instance3
+bbc1b518349e   hello-world   "/hello"    2 days ago      Exited (0) 42 hours ago                deepHelloWorld
+9350b646f4ea   hello-world   "/hello"    2 days ago      Exited (0) 2 days ago                  optimistic_mayer
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+>docker images
+REPOSITORY                  TAG                                        IMAGE ID       CREATED         SIZE
+nginx                       latest                                     1d668e06f1e5   3 weeks ago     188MB
+mysql                       latest                                     e9387c13ed83   3 weeks ago     578MB
+
+>docker rmi nginx
+Untagged: nginx:latest
+Untagged: nginx@sha256:4c02d4840499a52e8b3e54b24fe1ed08fef51348edba10d81e0588f5835b902b
+Deleted: sha256:1d668e06f1e534ab338404ba891c37d618dd53c9073dcdd4ebde82aa7643f83f		
+					....
+Deleted: sha256:52ec5a4316fadc09a4a51f82b8d7b66ead0d71bea4f75e81e25b4094c4219061
+
+>docker images
+REPOSITORY                  TAG                                        IMAGE ID       CREATED         SIZE
+mysql                       latest                                     e9387c13ed83   3 weeks ago     578MB
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

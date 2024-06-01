@@ -1,0 +1,54 @@
+step 1:
+
+create any folder at anywhere.
+and create text file "Dockerfile"
+
+step 2:
+
+add HelloWorld.py file in same folder.
+
+step 3:
+
+add below code in Dockerfile
+
+"""
+FROM openjdk:11
+
+WORKDIR /usr/src/myapp
+COPY . /usr/src/myapp/
+
+RUN javac HelloFromCoreJava.java 
+
+CMD [ "java", "HelloFromCoreJava"]
+"""
+
+step 4:
+open cmd in current folder
+
+>docker build -t hellojava .
+
+
+step 5
+run the docker
+
+>docker run --name myJavaContainer hellojava
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,1 @@
+print("Hello Deepak,\nI am from core python!")
